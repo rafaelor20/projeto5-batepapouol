@@ -1,0 +1,56 @@
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat UOL</title>
+    <link rel="stylesheet" type="text/css" href="reset.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap"
+        rel="stylesheet">
+    </link>
+</head>
+<body>
+    <div class="tela-de-entrada escondido">
+        <div class="caixa-logo-tela-de-entrada">
+            <img class="logo-tela-de-entrada" src="assets/logo-uol.svg" alt="logo UOL">
+        </div>
+        <div class="caixa-login">
+            <div class="caixa-login-digite-nome">Digite seu nome</div>
+            <div class="botao-entrar">entrar</div>
+        </div>
+    </div>
+
+    <div class="tela-do-chat">
+        <div class="barra-superior">
+            <div><img class="logo-uol-chat" src="assets/logo-uol.svg" alt="logo-uol"></div>
+            <div><img class="logo-botao-contatos" src="assets/people.svg" alt="contatos"></div>
+        </div>
+
+        <div class="espaco-barra-msg"></div>
+
+        <div class="caixa-mensagem msg-status">
+            <p class="fonte-msg"><span class="horario-msg">(09:21:45)</span> <span class="usuario">João</span> entra na sala...</p>
+        </div>
+
+        <div class="caixa-mensagem msg-publica">
+            <p class="fonte-msg"><span class="horario-msg">(09:31:45)</span> <span class="usuario">Maria</span> para 
+                <span class="usuario">João</span>: Oi João :)</p>
+        </div>
+
+        <div class="espaco-barra-msg"></div>
+
+        <div class="barra-inferior">
+            <input type="text" placeholder="Escreva aqui..." class="caixa-escrever-msg"></input>
+            <div class="caixa-envia-msg"><img class="img-envia-msg" src="assets/paper-plane.svg" alt="envia msg"></div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
