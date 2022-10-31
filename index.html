@@ -32,20 +32,15 @@
 
         <div class="espaco-barra-msg"></div>
 
-        <div class="caixa-mensagem msg-status">
-            <p class="fonte-msg"><span class="horario-msg">(09:21:45)</span> <span class="usuario">João</span> entra na sala...</p>
-        </div>
+        <div class="caixa-mensagens">
 
-        <div class="caixa-mensagem msg-publica">
-            <p class="fonte-msg"><span class="horario-msg">(09:31:45)</span> <span class="usuario">Maria</span> para 
-                <span class="usuario">João</span>: Oi João :)</p>
         </div>
 
         <div class="espaco-barra-msg"></div>
 
         <div class="barra-inferior">
-            <input type="text" placeholder="Escreva aqui..." class="caixa-escrever-msg"></input>
-            <div class="caixa-envia-msg"><img class="img-envia-msg" src="assets/paper-plane.svg" alt="envia msg"></div>
+            <input id="mensagem" type="text" placeholder="Escreva aqui..." class="caixa-escrever-msg"></input>
+            <div onclick="enviaMsg()" class="caixa-envia-msg"><img class="img-envia-msg" src="assets/paper-plane.svg" alt="envia msg"></div>
         </div>
     </div>
 

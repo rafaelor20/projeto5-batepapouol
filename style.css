@@ -85,6 +85,12 @@ body{
     height: 26px;
 }
 
+.caixa-mensagens{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .caixa-mensagem{
     width: 100%;
     height: 40px;
