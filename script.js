@@ -5,29 +5,32 @@ const messagens = "https://mock-api.driven.com.br/api/v6/uol/messages";
 let mensagemRecebida = {from: "",to: "",text: "",type: "",time: ""};
 let mensagemEnviar = {from:"", to:"", text:"", type:""};
 
-let mainUser = {name: ""};
-let login;
+let mainUser = {name: ""};//obj com nome do usuario como propriedade
+let login;//obj axios com nome do usuario logado
 let msgs;
 let msg;
 
-function fLogin(){
+function funcaoLogin(){
     let ok = true;
     mainUser.name = prompt("Qual o seu nome?");
     login = axios.post(loginUser, mainUser);
-    login.then(manterLogin);
-    login.catch(fLogin);
+    login.then(iniciaChat);
+    login.catch(erroLogin);
 }
 
-function manterLogin_aux(){
-    axios.post(loginStatus, mainUser);
+function erroLogin(){
+    alert("Tente outro nome!");
+    funcaoLogin();
 }
 
 function manterLogin(){
-    setInterval(manterLogin_aux, 5000);
-    setInterval(getMsgs, 3000);
+    axios.post(loginStatus, mainUser);
 }
 
-fLogin();
+function iniciaChat(){
+    setInterval(manterLogin, 5000);
+    setInterval(getMsgs, 3000);
+}
 
 function erroMsg(){
     window.location.reload();
@@ -49,35 +52,57 @@ function getMsgs(){
 }
 
 function renderizaMsgs(msgs){
-    console.log(msgs.data);
     let lstMsgs = msgs.data;
+    let caixa_mensagens = document.querySelector(".caixa-mensagens");
+    caixa_mensagens.innerHTML = "";
     for (let i = 0; i<lstMsgs.length; i++){
         if (lstMsgs[i].type == "status"){
             renderizaMsgStatus(lstMsgs[i]);
         } else if (lstMsgs[i].type == "message"){
             renderizaMsgPublica(lstMsgs[i]);
+        } else if (lstMsgs[i].type == "private_message"){
+            renderizaMsgPrivada(lstMsgs[i]);
         }
     }
+    scrollMsg();
 }
 
 function renderizaMsgStatus(msg){
-    console.log(msg.type);
     let caixa_mensagens = document.querySelector(".caixa-mensagens");
     let mensagemStatus = `
             <div class="caixa-mensagem msg-status">
-                <p class="fonte-msg"><span class="horario-msg">${msg.time}</span> 
+                <p class="fonte-msg"><span class="horario-msg">(${msg.time})  </span> 
                 <span class="usuario">${msg.from}</span> ${msg.text}</p>
             </div>`;
     caixa_mensagens.innerHTML = caixa_mensagens.innerHTML + mensagemStatus;
 }
 
 function renderizaMsgPublica(msg){
-    console.log(msg.type);
     let caixa_mensagens = document.querySelector(".caixa-mensagens");
     let mensagemPublica = `
-        <div class="caixa-mensagem msg-publica"><p class="fonte-msg"><span class="horario-msg">${msg.time}
-        </span> <span class="usuario">${msg.from}</span> para 
-        <span class="usuario">${msg.to}</span>:${msg.text}</p>
+        <div class="caixa-mensagem msg-publica"><p class="fonte-msg"><span class="horario-msg">(${msg.time})  
+        </span> <span class="usuario">${msg.from} </span> para 
+        <span class="usuario">${msg.to} </span>:${msg.text}</p>
         </div>`;
     caixa_mensagens.innerHTML = caixa_mensagens.innerHTML +  mensagemPublica;
 }
+
+function renderizaMsgPrivada(msg){
+    if (msg.from === mainUser || msg.to === mainUser){
+        let caixa_mensagens = document.querySelector(".caixa-mensagens");
+        let mensagemPrivada = `
+        <div class="caixa-mensagem msg-privada"><p class="fonte-msg"><span class="horario-msg">(${msg.time})  
+        </span> <span class="usuario">${msg.from} </span> reservadamente para 
+        <span class="usuario">${msg.to} </span>:${msg.text}</p>
+        </div>`;
+        caixa_mensagens.innerHTML = caixa_mensagens.innerHTML +  mensagemPrivada;
+    }
+}
+
+function scrollMsg(){
+    const elementoQueQueroQueApareca = document.querySelectorAll(".caixa-mensagem");
+    const ultimoIndice = elementoQueQueroQueApareca.length - 1;
+    elementoQueQueroQueApareca[ultimoIndice].scrollIntoView();
+}
+
+funcaoLogin();
