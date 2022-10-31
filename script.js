@@ -2,7 +2,6 @@ const loginUser = "https://mock-api.driven.com.br/api/v6/uol/participants ";
 const loginStatus = "https://mock-api.driven.com.br/api/v6/uol/status";
 const messagens = "https://mock-api.driven.com.br/api/v6/uol/messages";
 
-let mensagemRecebida = {from: "",to: "",text: "",type: "",time: ""};
 let mensagemEnviar = {from:"", to:"", text:"", type:""};
 
 let mainUser = {name: ""};//obj com nome do usuario como propriedade
@@ -32,7 +31,7 @@ function iniciaChat(){
     setInterval(getMsgs, 3000);
 }
 
-function erroMsg(){
+function atualizaPagina(){
     window.location.reload();
 }
 
@@ -48,7 +47,7 @@ function enviaMsg(){
 function getMsgs(){
     msgs = axios.get(messagens);
     msgs.then(renderizaMsgs);
-    msgs.catch(erroMsg);
+    msgs.catch(atualizaPagina);
 }
 
 function renderizaMsgs(msgs){
