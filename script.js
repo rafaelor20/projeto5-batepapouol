@@ -7,6 +7,8 @@ let mensagemEnviar = {from:"", to:"", text:"", type:""};
 
 let mainUser = {name: ""};
 let login;
+let msgs;
+let msg;
 
 function fLogin(){
     let ok = true;
@@ -22,6 +24,7 @@ function manterLogin_aux(){
 
 function manterLogin(){
     setInterval(manterLogin_aux, 5000);
+    setInterval(getMsgs, 3000);
 }
 
 fLogin();
@@ -37,10 +40,44 @@ function enviaMsg(){
     mensagemEnviar.text = msg;
     mensagemEnviar.type = "message";
     let msgEnviada = axios.post(messagens, mensagemEnviar);
-    msgEnviada.then();
-    msgEnviada.catch(erroMsg);
 }
 
 function getMsgs(){
-    let msgs = axios.get(messagens);
+    msgs = axios.get(messagens);
+    msgs.then(renderizaMsgs);
+    msgs.catch(erroMsg);
+}
+
+function renderizaMsgs(msgs){
+    console.log(msgs.data);
+    let lstMsgs = msgs.data;
+    for (let i = 0; i<lstMsgs.length; i++){
+        if (lstMsgs[i].type == "status"){
+            renderizaMsgStatus(lstMsgs[i]);
+        } else if (lstMsgs[i].type == "message"){
+            renderizaMsgPublica(lstMsgs[i]);
+        }
+    }
+}
+
+function renderizaMsgStatus(msg){
+    console.log(msg.type);
+    let caixa_mensagens = document.querySelector(".caixa-mensagens");
+    let mensagemStatus = `
+            <div class="caixa-mensagem msg-status">
+                <p class="fonte-msg"><span class="horario-msg">${msg.time}</span> 
+                <span class="usuario">${msg.from}</span> ${msg.text}</p>
+            </div>`;
+    caixa_mensagens.innerHTML = caixa_mensagens.innerHTML + mensagemStatus;
+}
+
+function renderizaMsgPublica(msg){
+    console.log(msg.type);
+    let caixa_mensagens = document.querySelector(".caixa-mensagens");
+    let mensagemPublica = `
+        <div class="caixa-mensagem msg-publica"><p class="fonte-msg"><span class="horario-msg">${msg.time}
+        </span> <span class="usuario">${msg.from}</span> para 
+        <span class="usuario">${msg.to}</span>:${msg.text}</p>
+        </div>`;
+    caixa_mensagens.innerHTML = caixa_mensagens.innerHTML +  mensagemPublica;
 }
