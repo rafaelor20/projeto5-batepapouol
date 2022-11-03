@@ -42,6 +42,7 @@ function enviaMsg(){
     mensagemEnviar.text = msg;
     mensagemEnviar.type = "message";
     let msgEnviada = axios.post(messagens, mensagemEnviar);
+    enviaMsg();
 }
 
 function getMsgs(){
