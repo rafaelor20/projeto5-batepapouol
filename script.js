@@ -69,7 +69,7 @@ function renderizaMsgs(msgs){
 function renderizaMsgStatus(msg){
     let caixa_mensagens = document.querySelector(".caixa-mensagens");
     let mensagemStatus = `
-            <div class="caixa-mensagem msg-status">
+            <div class="caixa-mensagem msg-status" "data-test="message">
                 <p class="fonte-msg"><span class="horario-msg">(${msg.time})  </span> 
                 <span class="usuario">${msg.from}</span> ${msg.text}</p>
             </div>`;
@@ -79,7 +79,7 @@ function renderizaMsgStatus(msg){
 function renderizaMsgPublica(msg){
     let caixa_mensagens = document.querySelector(".caixa-mensagens");
     let mensagemPublica = `
-        <div class="caixa-mensagem msg-publica"><p class="fonte-msg"><span class="horario-msg">(${msg.time})  
+        <div class="caixa-mensagem msg-publica" "data-test="message"><p class="fonte-msg"><span class="horario-msg">(${msg.time})  
         </span> <span class="usuario">${msg.from} </span> para 
         <span class="usuario">${msg.to} </span>:${msg.text}</p>
         </div>`;
@@ -90,7 +90,7 @@ function renderizaMsgPrivada(msg){
     if (msg.from === mainUser || msg.to === mainUser){
         let caixa_mensagens = document.querySelector(".caixa-mensagens");
         let mensagemPrivada = `
-        <div class="caixa-mensagem msg-privada"><p class="fonte-msg"><span class="horario-msg">(${msg.time})  
+        <div class="caixa-mensagem msg-privada" "data-test="message"><p class="fonte-msg"><span class="horario-msg">(${msg.time})  
         </span> <span class="usuario">${msg.from} </span> reservadamente para 
         <span class="usuario">${msg.to} </span>:${msg.text}</p>
         </div>`;
